@@ -6,8 +6,8 @@ if ($type == 0) {
     $url = "";
     $res = GetFromApi(base64_decode($ke));
     for ($i = 0; $i < count($res); $i++) {
-        $lat = $res[$i]['geometry']["y"];
-        $lon = $res[$i]['geometry']["x"];
+        $lat = $res[$i]['geometry']["y"]||explode($res[$i]['geometry']["coordinates"],',')[0];
+        $lon = $res[$i]['geometry']["x"]||explode($res[$i]['geometry']["coordinates"],',')[1];
         if (isset($res[$i]['attributes'])) {
             $name = $res[$i]['attributes']["Název"];
             unset($res[$i]['attributes']["Název"]);
