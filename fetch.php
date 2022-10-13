@@ -1,6 +1,6 @@
 <?php
-//function GetFromApi($apiurl)
-//{
+function GetFromApi($apiurl)
+{
     $apiurl = 'https://services6.arcgis.com/ogJAiK65nXL1mXAW/arcgis/rest/services/N%C3%A1rodn%C3%AD_kulturn%C3%AD_pam%C3%A1tky_na_indikativn%C3%ADm_seznamu/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json';
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -9,37 +9,21 @@
     $content = curl_exec($ch);
     curl_close($ch);
     $decoded = json_decode($content, true);
-    //echo count($decoded);
     if (isset($decoded['features'])) {
         if (isset($decoded['fields'])) {
-            //print_r($decoded['fields']);
             if (isset($decoded['fields'][0]['alias'])) {
-                for ($x = 0; $x < count($decoded['fields']); $x++){
-                    echo('nice');
-                     $decoded['features'][$x]['attributes'][$decoded['fields'][$x]['alias']] = $decoded['features'][$x]['attributes'][$decoded['fields'][$x]['name']];
-                    unset($decoded['features'][$x]['attributes'][$decoded['fields'][$x]['name']]);
+                for ($x = 0; $x < count($decoded['fields']); $x++) {
+                    for ($y = 0; $y < count($decoded['features']); $y++) {
+                        $decoded['features'][$y]['attributes'][$decoded['fields'][$x]['alias']] = $decoded['features'][$y]['attributes'][$decoded['fields'][$x]['name']];
+                        unset($decoded['features'][$y]['attributes'][$decoded['fields'][$x]['name']]);
+                    }
                 }
             }
-            else{
-                echo('fuuck');
-            }
         }
-        else{echo('not so nice');}
     }
-    else{
-        echo('fucking fuck');
-    }
-    echo "\n";
-    if (is_array($decoded) && count($decoded) != 0)
-    {
-        var_dump($decoded);
-    }
-    else
-    {
-        echo("upsík dupsík");
-    }
-
-//}
+    return($decoded['features']);
+}
+print_r(GetFromApi(""));
 ?>
 
 
