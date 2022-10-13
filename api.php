@@ -1,9 +1,10 @@
 <?php
 include 'fetch.php';
+foreach ($_GET as $ke => $valu) {
 $type = 0;
 if ($type == 0) {
     $url = "";
-    $res = GetFromApi($url);
+    $res = GetFromApi($ke);
     for ($i = 0; $i < count($res); $i++) {
         $lat = $res[$i]['geometry']["y"];
         $lon = $res[$i]['geometry']["x"];
@@ -44,7 +45,8 @@ if ($type == 0) {
         }
 
     }
-} else if ($type == 1) {
+}
+}/* else if ($type == 1) {
     $url = "";
     $res = GetFromApi($url);
     for ($i = 0; $i < count($res); $i++) {
@@ -58,7 +60,7 @@ if ($type == 0) {
         $lonlat = $res[$i]["lonlat"];
         DrawPolygon($lonlat, "");
     }
-}
+}*/
 //DrawPoint(50.19840000000004, 15.83370000000008, "\"Hlavní budova\"");
 function DrawPoint($x, $y, $text)
 {
