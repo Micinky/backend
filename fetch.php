@@ -11,17 +11,20 @@
     $decoded = json_decode($content, true);
     //echo count($decoded);
     if (isset($decoded['features'])) {
-        echo('fuck');
         if (isset($decoded['fields'])) {
-            echo('not so nice');
-            if (isset($decoded['features']['fields']['alias'])) {
+            //print_r($decoded['fields']);
+            if (isset($decoded['fields'][0]['alias'])) {
                 for ($x = 0; $x < count($decoded['fields']); $x++){
                     echo('nice');
                      $decoded['features'][$x]['attributes'][$decoded['fields'][$x]['alias']] = $decoded['features'][$x]['attributes'][$decoded['fields'][$x]['name']];
                     unset($decoded['features'][$x]['attributes'][$decoded['fields'][$x]['name']]);
                 }
             }
+            else{
+                echo('fuuck');
+            }
         }
+        else{echo('not so nice');}
     }
     else{
         echo('fucking fuck');
