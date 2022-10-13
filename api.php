@@ -10,15 +10,19 @@ if ($type == 0) {
         if (isset($res[$i]['attributes'])) {
             $name = $res[$i]['attributes']["Název"];
             $street = $res[$i]['attributes']["Název ulice"];
-            $city = $res[$i]['attributes']["Obec"];
-            $number = $res[$i]['attributes']["Číslo popisné"];
+            $city = $res[$i]['attributes']["Název obce"];
+            $number = $res[$i]['attributes']["Číslo popisné nebo evidenční podle typu čísla domovního"];
+            $zip = $res[$i]['attributes']["PSČ"];
+            DrawPoint($lon, $lat, "<Název>$name</Název><Adresa>$street $number</Adresa><Obec>$city</Obec><PSČ>$zip</PSČ>");
         } else {
             $name = $res[$i]['properties']["nazev"];
             $street = $res[$i]['properties']["nazev_ulice"];
             $city = $res[$i]['properties']["nazev_obce"];
             $number = $res[$i]['properties']["typ_cisla_domovniho"] . $res[$i]['attributes']["cislo_domovni"] . "/" . $res[$i]['attributes']["cislo_orientacni"];
+            $zip = $res[$i]['properties']["psc"];
+            DrawPoint($lon, $lat, "<Název>$name</Název><Adresa>$street $number</Adresa><Obec>$city</Obec><PSČ>$zip</PSČ>");
         }
-        DrawPoint($lon, $lat, "");
+
     }
 } else if ($type == 1) {
     $url = "";
@@ -46,7 +50,7 @@ function DrawPoint($x, $y, $text)
 {
     print(" <Marker position={[$x,$y]}>
       <Popup>
-        
+        $text
       </Popup>
     </Marker>");
 }

@@ -23,7 +23,7 @@ function GetFromApi($apiurl)
     }
     return($decoded['features']);
 }
-print_r(GetFromApi(""));
+//print_r(GetFromApi(""));
 ?>
 
 
