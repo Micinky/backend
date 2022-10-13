@@ -26,17 +26,25 @@ if($type== 0){
     $url = "";
     $res = GetFromApi($url);
     for($i=0;$i<count($res);$i++){
-        
+        $lat = $res[$i]["lat"];
+        $lon = $res[$i]["lon"];
+        DrawPoint($lat,$lon,"");
     }
 }
 else if ($type == 1){
-    print("
-    L.geoJSON(geojsonFeature).addTo(map);
-    ");
+    $url = "";
+    $res = GetFromApi($url);
+    for($i=0;$i<count($res);$i++){
+        $lonlat = $res[$i]["lonlat"];
+        DrawPolyLine($lonlat,"");
+    }
 }else{
-    print("
-    L.geoJSON(geojsonFeature).addTo(map);
-    ");
+    $url = "";
+    $res = GetFromApi($url);
+    for($i=0;$i<count($res);$i++){
+        $lonlat = $res[$i]["lonlat"];
+        DrawPolygon($lonlat,"");
+    }
 }
 DrawPoint(50.19840000000004,15.83370000000008,"\"Hlavní budova\"");
 print("

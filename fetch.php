@@ -10,6 +10,19 @@
     curl_close($ch);
     $decoded = json_decode($content, true);
     //echo count($decoded);
+    if (in_array('fields', $decoded)) {
+        echo('fuck');
+        if (in_array('name', $decoded['fields'])) {
+            echo('not so nice');
+            if (in_array('alias', $decoded['fields'])) {
+                for ($x = 0; $x < count($decoded['fields']); $x++){
+                    echo('nice');
+                     $decoded['features'][$x]['attributes'][$decoded['fields'][$x]['alias']] = $decoded['features'][$x]['attributes'][$decoded['fields'][$x]['name']];
+                    unset($decoded['features'][$x]['attributes'][$decoded['fields'][$x]['name']]);
+                }
+            }
+        }
+    }
     echo "\n";
     if (is_array($decoded) && count($decoded) != 0)
     {
@@ -17,7 +30,7 @@
     }
     else
     {
-        echo("fuck");
+        echo("upsík dupsík");
     }
 
 //}
