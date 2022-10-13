@@ -16,11 +16,22 @@ if ($type == 0) {
             DrawPoint($lon, $lat, "<Název>$name</Název><Adresa>$street $number</Adresa><Obec>$city</Obec><PSČ>$zip</PSČ>");
         } else {
             $name = $res[$i]['properties']["nazev"];
+            unset($res[$i]['properties']["nazev"]);
             $street = $res[$i]['properties']["nazev_ulice"];
+            unset($res[$i]['properties']["nazev_ulice"]);
             $city = $res[$i]['properties']["nazev_obce"];
+            unset($res[$i]['properties']["nazev_obce"]);
             $number = $res[$i]['properties']["typ_cisla_domovniho"] . $res[$i]['attributes']["cislo_domovni"] . "/" . $res[$i]['attributes']["cislo_orientacni"];
+            unset($res[$i]['properties']["typ_cisla_domovniho"]);
+            unset($res[$i]['properties']["cislo_domovni"]);
+            unset($res[$i]['properties']["cislo_orientacni"]);
             $zip = $res[$i]['properties']["psc"];
-            DrawPoint($lon, $lat, "<Název>$name</Název><Adresa>$street $number</Adresa><Obec>$city</Obec><PSČ>$zip</PSČ>");
+            unset($res[$i]['properties']["psc"]);
+            $text = "";
+            foreach ($res[$i]['properties'] as $key => $value) {
+                $text .= "$key : $value";
+            }
+            DrawPoint($lon, $lat, "Název: $name <br> Adresa:$street $number <br> Obec:$city<br> PSČ:$zip<br>");
         }
 
     }
