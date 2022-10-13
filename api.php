@@ -4,7 +4,7 @@ foreach ($_GET as $ke => $valu) {
 $type = 0;
 if ($type == 0) {
     $url = "";
-    $res = GetFromApi($ke);
+    $res = GetFromApi(base64_decode($ke));
     for ($i = 0; $i < count($res); $i++) {
         $lat = $res[$i]['geometry']["y"];
         $lon = $res[$i]['geometry']["x"];
